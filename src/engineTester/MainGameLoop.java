@@ -1,12 +1,19 @@
 package engineTester;
 
 import org.lwjgl.opengl.Display;
+import org.lwjgl.util.vector.Vector3f;
 
+import entities.Camera;
+import entities.Entity;
+import entities.Light;
+import models.RawModel;
+import models.TexturedModel;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
+import renderEngine.OBJLoader;
 import renderEngine.Renderer;
-import renderEngine.rawModel;
 import shaders.StaticShader;
+import textures.ModelTexture;
 
 public class MainGameLoop {
 	
@@ -17,26 +24,30 @@ public class MainGameLoop {
 		DisplayManager.createDisplay();
 		
 		Loader loader = new Loader();
-		Renderer renderer = new Renderer();
 		StaticShader shader = new StaticShader();
+		Renderer renderer = new Renderer(shader);
 		
-		float[] vertices = {
-				  -0.5f, 0.5f, 0,
-				  -0.5f, -0.5f, 0,
-				  0.5f, -0.5f, 0,
-				  0.5f, 0.5f, 0f
-				};
-				  
-				int[] indices = {
-				  0,1,3,
-				  3,1,2
-				};
-		rawModel model = loader.loadToVAO(vertices,indices);
+		Camera camera = new Camera();
 		
+		
+		
+		RawModel model = OBJLoader.loadOBJModel("dragon", loader);
+		TexturedModel staticModel = new TexturedModel(model,new ModelTexture(loader.loadTexture("white")));
+		ModelTexture texture = staticModel.getTexture();
+		texture.setReflectivity(10);
+		texture.setShineDamper(10);
+		
+		Entity entity = new Entity(staticModel,new Vector3f(0,0,0),0,90,0,0.1f);
+		Light light = new Light(new Vector3f(22,25,0),new Vector3f(1,1,1));
+				
 		while(!Display.isCloseRequested()){
+			entity.increaseRotation(0, 1, 0);
+			camera.move();
 			renderer.prepare();
 			shader.start();
-			renderer.render(model);
+			shader.loadLight(light);
+			shader.loadViewMatrix(camera);
+			renderer.render(entity,shader);
 			shader.stop();
 			DisplayManager.updateDisplay();
 			
