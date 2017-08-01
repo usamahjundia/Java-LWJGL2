@@ -23,7 +23,9 @@ public class StaticShader extends ShaderProgram{
 		super(VERTEX_FILE, FRAGMENT_FILE);
 		// TODO Auto-generated constructor stub
 	}
-	
+	/*
+	 * bindin the attribs to be loaded for renderer to use
+	 */
 	@Override
 	protected void bindAttributes(){
 		super.bindAttributes(0, "position");

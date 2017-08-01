@@ -18,11 +18,20 @@ public abstract class ShaderProgram {
 	private static FloatBuffer matrixBuffer = BufferUtils.createFloatBuffer(16);
 	
 	public ShaderProgram(String vertexFile, String fragmentFile){
+		/* loads the shaders
+		 * and get the ids
+		 */
 		vertexShaderID = loadShader(vertexFile,GL20.GL_VERTEX_SHADER);
 		fragmentShaderID = loadShader(fragmentFile,GL20.GL_FRAGMENT_SHADER); 
+		/*
+		 * creates a program taht will
+		 * automatically tie vertexshader and fragmentshader
+		 */
 		programID = GL20.glCreateProgram();
+		//Attaches the shaders into the program
 		GL20.glAttachShader(programID, vertexShaderID);
 		GL20.glAttachShader(programID, fragmentShaderID);
+		
 		bindAttributes();
 		GL20.glLinkProgram(programID);
 		GL20.glValidateProgram(programID);
@@ -52,6 +61,17 @@ public abstract class ShaderProgram {
 		GL20.glDeleteProgram(programID);
 	}
 	
+	/*
+	 * the following abstract method and one of its implementation
+	 * is called without parameter in the constructor
+	 * because and implementation of it is already used in the staticshader class
+	 * which extended this abstract method
+	 * 
+	 * this took kinda long ish to understand
+	 * 
+	 * REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+	 */
+	
 	protected abstract void bindAttributes();
 	
 	protected void bindAttributes(int attribute, String variableName){
@@ -79,7 +99,14 @@ public abstract class ShaderProgram {
 		matrixBuffer.flip();
 		GL20.glUniformMatrix4(location, false, matrixBuffer);
 	}
-	
+	/*
+	 * loads the shader files into a string
+	 * that will be evaluated with the built in glsl
+	 * compiler, will then attach it to a x shader
+	 * where x is specified by Integer type,
+	 * if compilation fails or shader is not found, 
+	 * it will terminate the program and show the error as a prompt
+	 */
 	private static int loadShader(String file, int type){
 		  StringBuilder shaderSource = new StringBuilder();
 		  try{

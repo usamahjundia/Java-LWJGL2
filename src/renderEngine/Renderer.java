@@ -35,7 +35,7 @@ public class Renderer {
 		 * The pieces of code below made it so that
 		 * faces or surfaces that is behind another
 		 * surface will not be rendered, saving some
-		 * working power to be used for something else.
+		 * working power to be used for something else
 		 */
 		
 		GL11.glEnable(GL11.GL_CULL_FACE);
@@ -49,8 +49,15 @@ public class Renderer {
 		shader.stop();
 	}
 	
-
+	/*
+	 * prepares the display with a certain color
+	 * for later use
+	 */
 	public void prepare(){
+		
+		/*
+		 * enables depth test so which face is on the fornt is clear
+		 */
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_DEPTH_BUFFER_BIT);
 		GL11.glClearColor(1, 0, 0, 1);
@@ -62,7 +69,22 @@ public class Renderer {
 		TexturedModel texturedModel = entity.getModel();
 		
 		RawModel model = texturedModel.getRawModel();
+		
+		/*
+		 * the following line binds the VAO
+		 * of the model to be rendered,
+		 * because binding it is the first step
+		 * before it being usable
+		 */
+		
 		GL30.glBindVertexArray(model.getVAOID());
+		
+		/*
+		 * the following lines enables
+		 * each of the attrib list
+		 * for use
+		 */
+		
 		GL20.glEnableVertexAttribArray(0);
 		GL20.glEnableVertexAttribArray(1);
 		GL20.glEnableVertexAttribArray(2);
@@ -72,10 +94,19 @@ public class Renderer {
 		shader.loadShineVariables(texture.getShineDamper(), texture.getReflectivity());
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, texturedModel.getTexture().getID());
+		
+		/*
+		 * this method below draws the model using the Elements Array Buffer
+		 */
+		
 		GL11.glDrawElements(GL11.GL_TRIANGLES, model.getVertexCount(), GL11.GL_UNSIGNED_INT,0);
+		
+		//disabling the VAO attrib list when finished using
 		GL20.glDisableVertexAttribArray(0);
 		GL20.glDisableVertexAttribArray(1);
 		GL20.glDisableVertexAttribArray(2);
+		
+		//unbinds the VAO to use
 		GL30.glBindVertexArray(0);
 		
 	}
