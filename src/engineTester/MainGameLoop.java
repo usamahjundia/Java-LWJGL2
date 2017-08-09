@@ -10,6 +10,7 @@ import models.RawModel;
 import models.TexturedModel;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
+import renderEngine.MasterRenderer;
 import renderEngine.OBJLoader;
 import renderEngine.Renderer;
 import shaders.StaticShader;
@@ -24,8 +25,8 @@ public class MainGameLoop {
 		DisplayManager.createDisplay();
 		
 		Loader loader = new Loader();
-		StaticShader shader = new StaticShader();
-		Renderer renderer = new Renderer(shader);
+//		StaticShader shader = new StaticShader();
+//		Renderer renderer = new Renderer(shader);
 		
 		Camera camera = new Camera();
 		
@@ -34,25 +35,30 @@ public class MainGameLoop {
 		RawModel model = OBJLoader.loadOBJModel("dragon", loader);
 		TexturedModel staticModel = new TexturedModel(model,new ModelTexture(loader.loadTexture("white")));
 		ModelTexture texture = staticModel.getTexture();
-		texture.setReflectivity(1);
+		texture.setReflectivity(0);
 		texture.setShineDamper(1);
 		
 		Entity entity = new Entity(staticModel,new Vector3f(0,0,0),0,90,0,0.1f);
 		Light light = new Light(new Vector3f(22,25,0),new Vector3f(0,1,1));
+		
+		MasterRenderer renderer = new MasterRenderer();
 				
 		while(!Display.isCloseRequested()){
 			entity.increaseRotation(0, 1, 0);
 			camera.move();
-			renderer.prepare();
-			shader.start();
-			shader.loadLight(light);
-			shader.loadViewMatrix(camera);
-			renderer.render(entity,shader);
-			shader.stop();
+//			renderer.prepare();
+//			shader.start();
+//			shader.loadLight(light);
+//			shader.loadViewMatrix(camera);
+//			renderer.render(entity,shader);
+//			shader.stop();
+			renderer.processEntity(entity);
+			renderer.render(light, camera);
 			DisplayManager.updateDisplay();
 			
 		}
-		shader.cleanUp();
+		renderer.cleanUp();
+//		shader.cleanUp();
 		loader.cleanup();
 		DisplayManager.closeDisplay();
 	}

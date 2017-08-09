@@ -1,5 +1,6 @@
 package textures;
-
+// a class to define an item that is the texture with its
+// own properties etc.
 public class ModelTexture {
 	
 	private int textureID;

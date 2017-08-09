@@ -2,6 +2,11 @@ package models;
 
 import textures.ModelTexture;
 
+/*
+ * represents a TexturedModel that has a RawModel component and a Texture Component utilizing the ModelTexture and the RawModel class
+ * nothingfancy
+ */
+
 public class TexturedModel {
 	
 	private RawModel rawModel;

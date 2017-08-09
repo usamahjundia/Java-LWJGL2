@@ -47,6 +47,15 @@ public class Loader {
 		
 	}
 	
+	/*
+	 * loads a texture of a certain filename in a specific folder,
+	 * the texture is a type provided by the Texture class
+	 * that is provided by the SlickUtils library
+	 * and returns the textureID of the said texture
+	 * that is already loaded using the TextureLoader method
+	 * 
+	 */
+	
 	public int loadTexture(String fileName){
 		Texture texture = null;
 		try {
