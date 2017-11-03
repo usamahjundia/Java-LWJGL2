@@ -12,8 +12,9 @@ import renderEngine.DisplayManager;
 import renderEngine.Loader;
 import renderEngine.MasterRenderer;
 import renderEngine.OBJLoader;
-import renderEngine.Renderer;
+import renderEngine.EntityRenderer;
 import shaders.StaticShader;
+import terrain.Terrain;
 import textures.ModelTexture;
 
 public class MainGameLoop {
@@ -38,14 +39,24 @@ public class MainGameLoop {
 		texture.setReflectivity(0);
 		texture.setShineDamper(1);
 		
-		Entity entity = new Entity(staticModel,new Vector3f(0,0,0),0,90,0,0.1f);
-		Light light = new Light(new Vector3f(22,25,0),new Vector3f(0,1,1));
+		Entity entity = new Entity(staticModel,new Vector3f(50,0,50),0,90,0,1);
+		Light light = new Light(new Vector3f(50,25,50),new Vector3f(0,1,1));
 		
+		Terrain terrain = new Terrain(0,0,loader,new ModelTexture(loader.loadTexture("grass")));
+		Terrain terrain2 = new Terrain(1,0,loader,new ModelTexture(loader.loadTexture("grass")));
+		Terrain terrain3 = new Terrain(-1,0,loader,new ModelTexture(loader.loadTexture("grass")));
+		Terrain terrain4 = new Terrain(0,1,loader,new ModelTexture(loader.loadTexture("grass")));
+
 		MasterRenderer renderer = new MasterRenderer();
 				
 		while(!Display.isCloseRequested()){
 			entity.increaseRotation(0, 1, 0);
+			//entity.increaseRotation(0, 1, 0);
 			camera.move();
+			renderer.processTerrain(terrain);
+			renderer.processTerrain(terrain2);
+			renderer.processTerrain(terrain3);
+			renderer.processTerrain(terrain4);
 //			renderer.prepare();
 //			shader.start();
 //			shader.loadLight(light);
