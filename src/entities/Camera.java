@@ -14,24 +14,26 @@ public class Camera {
 		
 	}
 	
+	float factor = 5.0f;
+	
 	public void move(){
 		if(Keyboard.isKeyDown(Keyboard.KEY_W)){
-			position.z -=0.02f;
+			position.z -= factor * 0.02f;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_S)){
-			position.z +=0.02f;
+			position.z += factor * 0.02f;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_D)){
-			position.x +=0.02f;
+			position.x += factor * 0.02f;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_A)){
-			position.x -=0.02f;
+			position.x -= factor * 0.02f;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_SPACE)){
-			position.y +=0.02f;
+			position.y +=factor * 0.02f;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_E)){
-			position.y -=0.02f;
+			position.y -=factor * 0.02f;
 		}
 	}
 

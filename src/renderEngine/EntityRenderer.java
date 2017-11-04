@@ -99,6 +99,10 @@ public class EntityRenderer {
 		GL20.glEnableVertexAttribArray(2);
 		
 		ModelTexture texture = model.getTexture();
+		if(texture.isHasTransparency()) {
+			MasterRenderer.disableCulling();
+		}
+		shader.loadFakeLightingVariables(texture.isUseFakeLighting());
 		shader.loadShineVariables(texture.getShineDamper(), texture.getReflectivity());
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, model.getTexture().getID());
@@ -106,7 +110,7 @@ public class EntityRenderer {
 	}
 	
 	private void unbindTexturedModel(){
-
+		MasterRenderer.enableCulling();
 		//disabling the VAO attrib list when finished using
 		GL20.glDisableVertexAttribArray(0);
 		GL20.glDisableVertexAttribArray(1);
