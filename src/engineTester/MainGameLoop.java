@@ -49,8 +49,12 @@ public class MainGameLoop {
 		for(int i = 0; i < 1000; i++) {
 			int x = (int) (Math.random() * 1000);
 			int z = (int) (Math.random() * 1000);
-			entityList.add(new Entity(staticModel,new Vector3f(x,0,z),0,90,0,1));
+			entityList.add(new Entity(staticModel,new Vector3f(x,0,z),0,90,0,3));
 			entityList.add(new Entity(gstaticModel,new Vector3f(z,0,x),0,90,0,1));
+			entityList.add(new Entity(gstaticModel,new Vector3f(z+10,0,x),0,90,0,1));
+			entityList.add(new Entity(gstaticModel,new Vector3f(z,0,x+10),0,90,0,1));
+			entityList.add(new Entity(gstaticModel,new Vector3f(z+10,0,x+10),0,90,0,1));
+
 		}
 		
 		
