@@ -102,7 +102,11 @@ public class MasterRenderer {
 		 * enables depth test so which face is on the fornt is clear
 		 */
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
+<<<<<<< HEAD
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+=======
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_DEPTH_BUFFER_BIT);
+>>>>>>> 4c81eedc9f74daf48b3aea4ae6008a5d86c2d507
 		GL11.glClearColor(0.5f,0.75f,0.93f, 1);
 		//GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 		
