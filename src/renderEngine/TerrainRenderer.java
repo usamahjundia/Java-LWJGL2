@@ -62,9 +62,19 @@ public class TerrainRenderer {
 		
 		ModelTexture texture = terrain.getTexture();
 		shader.loadShineVariables(texture.getShineDamper(), texture.getReflectivity());
+		
+		
+	}
+	
+	private void bindTextures(Terrain terrain) {
+		GL13.glActiveTexture(GL13.GL_TEXTURE0);
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D,.getID());
+		GL13.glActiveTexture(GL13.GL_TEXTURE1);
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture.getID());
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture.getID());
-		
+		GL13.glActiveTexture(GL13.GL_TEXTURE0);
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture.getID());
 	}
 	
 	private void unbindTerrain(){
