@@ -30,12 +30,12 @@ void main(void){
 	
 	float backTextAmt = 1- (blendMapColour.r + blendMapColour.g + blendMapColour.b);
 	vec2 tile = pass_textureCoords * 40.0;
-	vec4 bgTexColour = texture(bg, tile)* backTextureAmt;
+	vec4 bgTexColour = texture(bg, tile)* backTextAmt;
 	vec4 rTexColour = texture(r, tile)* blendMapColour.r;
 	vec4 gTexColour = texture(g, tile)* blendMapColour.g;
 	vec4 bTexColour = texture(b, tile)* blendMapColour.b;
 	
-	vec4 totalColour = bgTexColour + rTexColour + gTexColour, bTexColour;
+	vec4 totalColour = bgTexColour + rTexColour + gTexColour + bTexColour;
 	
 	
 	vec3 unitNormal = normalize(surfaceNormal);

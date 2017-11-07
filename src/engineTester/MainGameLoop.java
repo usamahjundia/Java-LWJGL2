@@ -18,7 +18,9 @@ import renderEngine.OBJLoader;
 import renderEngine.EntityRenderer;
 import shaders.StaticShader;
 import terrain.Terrain;
+import terrain.TerrainTexture;
 import textures.ModelTexture;
+import textures.TerrainTexturePack;
 
 public class MainGameLoop {
 	
@@ -34,6 +36,24 @@ public class MainGameLoop {
 		
 		Camera camera = new Camera();
 		
+		//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+		
+		TerrainTexture bg = new TerrainTexture(loader.loadTexture("grassy"));
+		TerrainTexture r = new TerrainTexture(loader.loadTexture("dirt"));
+		TerrainTexture g = new TerrainTexture(loader.loadTexture("path"));
+		TerrainTexture b = new TerrainTexture(loader.loadTexture("mud"));
+		TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("blendMap"));
+		
+		TerrainTexturePack texPack = new TerrainTexturePack(bg,r,g,b);
+		
+		
+		
+		
+		
+		
+		
+		
+		//end
 		
 		
 		RawModel model = OBJLoader.loadOBJModel("tree", loader);
@@ -60,10 +80,7 @@ public class MainGameLoop {
 		
 		Light light = new Light(new Vector3f(2000,2000,2000),new Vector3f(0.5f,0.75f,0.93f));
 		
-		Terrain terrain = new Terrain(0,0,loader,new ModelTexture(loader.loadTexture("grass")));
-		Terrain terrain2 = new Terrain(1,0,loader,new ModelTexture(loader.loadTexture("grass")));
-		Terrain terrain3 = new Terrain(-1,0,loader,new ModelTexture(loader.loadTexture("grass")));
-		Terrain terrain4 = new Terrain(0,1,loader,new ModelTexture(loader.loadTexture("grass")));
+		Terrain terrain = new Terrain(0,0,loader,texPack,blendMap);
 
 		MasterRenderer renderer = new MasterRenderer();
 				
@@ -73,9 +90,7 @@ public class MainGameLoop {
 			
 			camera.move();
 			renderer.processTerrain(terrain);
-			renderer.processTerrain(terrain2);
-			renderer.processTerrain(terrain3);
-			renderer.processTerrain(terrain4);
+
 //			renderer.prepare();
 //			shader.start();
 //			shader.loadLight(light);

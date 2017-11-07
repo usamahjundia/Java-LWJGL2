@@ -17,5 +17,17 @@ public class TerrainTexturePack {
 		this.b = b;
 		//this.blendMap = blendMap;
 	}
+	public TerrainTexture getBg() {
+		return bg;
+	}
+	public TerrainTexture getR() {
+		return r;
+	}
+	public TerrainTexture getG() {
+		return g;
+	}
+	public TerrainTexture getB() {
+		return b;
+	}
 	
 }
