@@ -1,6 +1,7 @@
 package renderEngine;
 
 import org.lwjgl.LWJGLException;
+import org.lwjgl.Sys;
 import org.lwjgl.opengl.ContextAttribs;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -18,6 +19,8 @@ public class DisplayManager {
 	private static int WIDTH = 720;
 	private static int HEIGHT = 720;
 	private static int FPS_MAX = 120;
+	private static float delta;
+	private static long lastFrameTime;
 	
 	public static void createDisplay(){
 		
@@ -41,6 +44,7 @@ public class DisplayManager {
 		}
 		//Sets the usable portion of the display by setting a left-bottom coordinate to the top-right
 		GL11.glViewport(0, 0, WIDTH, HEIGHT);
+		lastFrameTime = getCurrTime();
 	}
 	
 	public static void updateDisplay(){
@@ -48,12 +52,23 @@ public class DisplayManager {
 		Display.sync(FPS_MAX);
 		Display.update();
 		
+		long currentFrameTime = getCurrTime();
+		delta = (currentFrameTime - lastFrameTime ) / 1000f;
+		lastFrameTime = currentFrameTime;
+	}
+	
+	public static float getFrameTimeSecs() {
+		return delta;
 	}
 	
 	public static void closeDisplay(){
 		//self explanatory
 		Display.destroy();
 		
+	}
+	
+	private static long getCurrTime() {
+		return Sys.getTime() * 1000 / Sys.getTimerResolution();
 	}
 
 }
