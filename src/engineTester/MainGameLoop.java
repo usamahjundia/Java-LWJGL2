@@ -9,6 +9,7 @@ import org.lwjgl.util.vector.Vector3f;
 import entities.Camera;
 import entities.Entity;
 import entities.Light;
+import entities.Player;
 import models.RawModel;
 import models.TexturedModel;
 import renderEngine.DisplayManager;
@@ -83,12 +84,18 @@ public class MainGameLoop {
 		Terrain terrain = new Terrain(0,0,loader,texPack,blendMap);
 
 		MasterRenderer renderer = new MasterRenderer();
+		
+		RawModel kuranpi = OBJLoader.loadOBJModel("kuranpi", loader);
+		TexturedModel clownpiece = new TexturedModel(kuranpi, new ModelTexture(loader.loadTexture("TextureAtlas")));
+		Player player = new Player(clownpiece, new Vector3f(400,0,400), 0,0,0,1.5f);
 				
 		while(!Display.isCloseRequested()){
 			//entity.increaseRotation(0, 1, 0);
 			//entity.increaseRotation(0, 1, 0);
 			
 			camera.move();
+			//player.move();
+			//renderer.processEntity(player);
 			renderer.processTerrain(terrain);
 
 //			renderer.prepare();
