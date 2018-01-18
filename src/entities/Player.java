@@ -16,6 +16,7 @@ public class Player extends Entity{
 	private float currentSpeed = 0;
 	private float currentTurnSPeed = 0;
 	private float jumpSpeed = 0;
+	private boolean inAir = false;
 	
 	private static final float TERR_HEIGHT = 0;
 
@@ -36,11 +37,18 @@ public class Player extends Entity{
 		if(this.getPosition().y< TERR_HEIGHT) {
 			jumpSpeed = 0;
 			this.getPosition().y = 0;
+			inAir = false;
 		}
 	}
 	
 	private void jump() {
+		
+
+	if (!inAir) {
 		jumpSpeed = JUMPSTR;
+		inAir = true;
+	}
+	
 	}
 	
 	private void checkInputs() {

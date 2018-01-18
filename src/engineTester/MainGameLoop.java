@@ -35,7 +35,6 @@ public class MainGameLoop {
 //		StaticShader shader = new StaticShader();
 //		Renderer renderer = new Renderer(shader);
 		
-		Camera camera = new Camera();
 		
 		//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 		
@@ -88,14 +87,15 @@ public class MainGameLoop {
 		RawModel kuranpi = OBJLoader.loadOBJModel("kuranpi", loader);
 		TexturedModel clownpiece = new TexturedModel(kuranpi, new ModelTexture(loader.loadTexture("TextureAtlas")));
 		Player player = new Player(clownpiece, new Vector3f(400,0,400), 0,0,0,1.5f);
-				
+		Camera camera = new Camera(player);
+		
 		while(!Display.isCloseRequested()){
 			//entity.increaseRotation(0, 1, 0);
 			//entity.increaseRotation(0, 1, 0);
 			
 			camera.move();
-			//player.move();
-			//renderer.processEntity(player);
+			player.move();
+			renderer.processEntity(player);
 			renderer.processTerrain(terrain);
 
 //			renderer.prepare();
